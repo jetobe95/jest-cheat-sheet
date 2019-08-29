@@ -15,6 +15,15 @@ _I recommend [Mrm](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm
 <!-- toc -->
 
 - [Test structure](#test-structure)
+
+- [Expects](#expects)
+  - [Anything](#anything)
+  - [Any](#any)
+  - [ArrayContaining](#arrayContaining)
+  - [ObjectContaining](#objectContaining)
+  - [StringContaining](#stringContaining)
+  - [StringMatching](#stringMatching)
+  
 - [Matchers](#matchers)
   - [Basic matchers](#basic-matchers)
   - [Truthiness](#truthiness)
@@ -75,6 +84,77 @@ describe('makePoniesPink', () => {
   })
 })
 ```
+
+### Expects
+
+[Using expects](https://jestjs.io/docs/en/expect#expectvalue)
+
+#### Anything
+```js
+test('should be anything', () => {
+  expect('foo').toBeCalledWith(expect.anything()); // true
+});
+expect.anything() // matches anything except null or undefined
+
+```
+#### Any
+```js
+expect.any(Number|String|Array|Function) // matches anything that was created with the given construct
+
+function randocall(fn) {
+  return fn(Math.floor(Math.random() * 6 + 1));
+}
+
+test('randocall calls its callback with a number', () => {
+  const mock = jest.fn();
+  randocall(mock);
+  expect(mock).toBeCalledWith(expect.any(Number));
+});
+
+```
+#### arrayContaining
+```js
+
+expect.arrayContaining([])
+
+const expected = ['Alice', 'Bob'];
+  it('matches even if received contains additional elements', () => {
+    expect(['Alice', 'Bob', 'Eve']).toEqual(expect.arrayContaining(expected));
+  });
+
+```
+
+#### objectContaining
+```js
+expect.objectContaining(object)
+
+test('onPress gets called with the right thing', () => {
+  const onPress = jest.fn();
+  simulatePresses(onPress);
+  expect(onPress).toBeCalledWith(
+    expect.objectContaining({
+      x: expect.any(Number),
+      y: expect.any(Number),
+    }),
+  );
+});
+
+```
+#### stringContaining
+```js
+
+expect.stringContaining(string) // Deep equality
+
+```
+#### stringMatching
+```js
+
+expect.stringMatching(string | regexp) // matches the received value if it is a string that matches the expected string or regular expression.
+
+```
+
+
+
 
 ## Matchers
 
