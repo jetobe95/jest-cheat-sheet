@@ -485,9 +485,9 @@ fn.mockRestore() // Resets and restores the initial implementation
 For all mocks:
 
 ```js
-jest.clearAllMocks()
-jest.resetAllMocks()
-jest.restoreAllMocks()
+jest.clearAllMocks() // Clears the mock.calls and mock.instances properties of all mocks. Equivalent to calling .mockClear() on every mocked function.
+jest.resetAllMocks() // Resets the state of all mocks. Equivalent to calling .mockReset() on every mocked function.
+jest.restoreAllMocks() // Restores all mocks back to their original value, only mocks jest.spyOn
 ```
 
 ### Accessing the original module when using mocks
